@@ -33,8 +33,30 @@ async function updateUser(userInfo, email) {
     }
 }
 
+async function fetchAllUsers() {
+    try {
+        const query = 'select * from users;';
+        const params = []
+        return executeWriteOperation(query, params);
+    } catch (err) {
+        throw err
+    } 
+}
+
+async function updateUserInformation(userInfo, userId) {
+    try {
+        const query = 'update users set ? where user_id = ?;';
+        const params = [userInfo, userId]
+        return executeWriteOperation(query, params);
+    } catch (err) {
+        throw err
+    }
+}
+
 module.exports = {
     addUser,
     isExistUser,
-    updateUser
+    updateUser,
+    fetchAllUsers,
+    updateUserInformation
 }

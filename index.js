@@ -15,6 +15,7 @@ const { configureRoutes } = require('./middleware/googleAuth');
 // Import product routes
 const productRoutes = require('./routes/products/products');
 const loginRegisterRoutes = require('./routes/login/login');
+const userRoutes = require('./routes/users/user');
 
 // Create an instance of express
 const app = express();
@@ -64,6 +65,7 @@ app.listen(PORT, () => {
 loginRegisterRoutes(app);
 productRoutes(app, auth);
 configureRoutes(app, auth);
+userRoutes(app, auth);
 
 
 module.exports = {
