@@ -1,7 +1,7 @@
 'use strict'
 
 const _ = require('lodash');
-const { fetchAllUsers, updateUserInformation } = require('../../models/mysql/userRegistration');
+const { fetchAllUsers, updateUserInformation, removeUser } = require('../../models/mysql/userRegistration');
 const { userValidateForUpdate } = require('../../lib/lib')
 
 // fetch all users
@@ -43,7 +43,6 @@ module.exports.updateUserInfo = async (req, res) => {
         }
 
         const { isValid, missingKeys } = userValidateForUpdate(updateUserInfo); // validation for user information
-        console.log(isValid)
 
         if (!isValid) {
             return res.status(200).send({
@@ -60,6 +59,26 @@ module.exports.updateUserInfo = async (req, res) => {
         console.log(err,"Error")
         return res.status(500).send({
             message: "Unbale to update the users information"
+        })
+    }
+}
+
+module.exports.deleteUser = async (req, res) => {
+    try {
+        const { userId } = req.body
+        if (!_.isNumber(userId) || _.isNull(userId) || _.isUndefined(userId)) {
+            return res.status(412).send({
+                message: "userId is required parameter"
+            })
+        }
+        await removeUser(userId) // remove user from the system
+        return res.status(200).send({
+            message: "user removed successfully."
+        })
+    } catch (err) {
+        console.log(err,"error")
+        return res.status(500).send({
+            message: "Unable to remove the user"
         })
     }
 }

@@ -36,6 +36,8 @@ async function executeReadOperation (query = '', params = []) {
             }
             if (!_.isEmpty(result)) {
                 resolve(result);
+            } else {
+                resolve([]); // for empty results 
             }
         })
     })

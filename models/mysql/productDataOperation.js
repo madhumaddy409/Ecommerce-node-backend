@@ -8,7 +8,7 @@ async function pushProducts (product) {
     try {
         const query = 'INSERT into products SET ? ;';
         const params = [product]
-        return executeWriteOperation(query, params);
+        await executeWriteOperation(query, params);
     } catch (err) {
         throw err
     }
@@ -28,7 +28,7 @@ async function fetchProducts () {
 async function updateProductDetails (productInfo, productId) {
     try {
         const query = 'update products set ? where product_id = ?;';
-        return executeWriteOperation(query, [productInfo ,productId]);
+        await executeWriteOperation(query, [productInfo ,productId]);
     } catch (err) {
         throw err
     }
@@ -37,7 +37,7 @@ async function updateProductDetails (productInfo, productId) {
 async function removeProductFromApplication (productId) {
     try {
         const query = 'delete from products where product_id = ?;';
-        return executeWriteOperation(query, [productId]);
+        await executeWriteOperation(query, [productId]);
     } catch (err) {
         throw err
     }

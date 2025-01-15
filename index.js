@@ -16,6 +16,7 @@ const { configureRoutes } = require('./middleware/googleAuth');
 const productRoutes = require('./routes/products/products');
 const loginRegisterRoutes = require('./routes/login/login');
 const userRoutes = require('./routes/users/user');
+const cartRoutes = require('./routes/cart/cart')
 
 // Create an instance of express
 const app = express();
@@ -66,6 +67,7 @@ loginRegisterRoutes(app);
 productRoutes(app, auth);
 configureRoutes(app, auth);
 userRoutes(app, auth);
+cartRoutes(app, auth);
 
 
 module.exports = {
